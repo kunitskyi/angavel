@@ -29,17 +29,17 @@ GLOBAL_MODULE_PROJECT_CONTROL_DESCRIPTION=(
     ["angavel:project:stop"]="Stop Project"
     ["angavel:selector:project-start"]="Start"
     
-    ["angavel:main-selector"]="Main Menu"
+    ["angavel:selector:main"]="Main Menu"
 )
 
 declare -gA GLOBAL_MODULE_PROJECT_START_DESCRIPTION
 GLOBAL_MODULE_PROJECT_START_DESCRIPTION=(
     # -- Start Menu --
     ["angavel:project:start-fresh"]="Fresh Start"
-    ["angavel:project:start-update"]="Update Start"
+    ["angavel:project:start-refresh"]="Refresh Start"
     ["angavel:project:start"]="Simple Start"
     
-    ["angavel:selector:project-control"]="Project Control"
+    ["angavel:selector:project-control"]="Go Back"
     ["angavel:selector:main"]="Main Menu"
 )
 
