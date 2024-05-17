@@ -1,0 +1,35 @@
+version: "3.8"
+
+name: angavel_${GENERAL_PREFIX}_spa
+services:
+  spa_webserver:
+    container_name: angavel_${GENERAL_PREFIX}_spa_webserver
+    image: nginx:${SRP_WS_NGINX_TAG}
+    volumes:
+      - ${AG_MODULE_PATH}/config/SPA/nginx-cmd.sh:/nginx-cmd.sh
+      - ${AG_MODULE_PATH}/config/SPA/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${AG_MODULE_PATH}/config/SPA/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ${AG_MODULE_PATH}/data/${GENERAL_PREFIX}/SPA/:/var/www/dist/:rw
+
+  spa_angular:
+    container_name: angavel_${GENERAL_PREFIX}_spa_angular
+    tty: true
+    build:
+      context: .
+      dockerfile: ${AG_MODULE_PATH}/config/SPA/node/Dockerfile
+      args:
+        SPA_NODE_VERSION_TAG: ${SPA_NODE_VERSION_TAG}
+        SPA_ANGULAR_VERSION: ${SPA_ANGULAR_VERSION}
+    ports:
+      - ${GENERAL_PORTS_IP}:${SPA_PORT}:4245
+    volumes:
+      - ${AG_MODULE_PATH}/config/SPA/node-cmd.sh:/node-cmd.sh
+      - ${AG_MODULE_PATH}/data/${GENERAL_PREFIX}/SPA/:/var/www/angular/
+    command: "ng serve --port 4245 --host 0.0.0.0 --disable-host-check "
+    environment:
+      BUILD_ENV: ${SPA_BUILD_ENV}
+
+networks:
+  default:
+    external: true
+    name: ${AG_NETWORK_NAME}
