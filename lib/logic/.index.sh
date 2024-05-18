@@ -12,6 +12,7 @@ function MODULE-LIBRARY-LOGIC-INDEX {
     
     source $LOCAL_PWD/initialization/.index.sh
     source $LOCAL_PWD/project/.index.sh
+    source $LOCAL_PWD/srp/.index.sh
     
 }
 
