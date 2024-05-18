@@ -6,12 +6,18 @@
 #
 #######
 
-GLOBAL_MODULE_PWD="${GLOBAL_PWD}/module/angavel"
+GLOBAL_MODULE_NETWORK_NAME="${GLOBAL_CURRENT_MODULE}-${GLOBAL_CURRENT_ENVIRONMENT}-net"
+GLOBAL_MODULE_PWD="${GLOBAL_PWD}/module/${GLOBAL_CURRENT_MODULE}"
+GLOBAL_COMPOSE_PWD="${GLOBAL_MODULE_PWD}/config"
+GLOBAL_COMPOSE_ENV_PATH="${GLOBAL_MODULE_PWD}/.env/${GLOBAL_CURRENT_ENVIRONMENT}/docker.env"
 
+source "${GLOBAL_MODULE_PWD}/.env/${GLOBAL_CURRENT_ENVIRONMENT}/panel.env"
 source "${GLOBAL_MODULE_PWD}/.env/${GLOBAL_CURRENT_ENVIRONMENT}/selectors.sh"
 source "${GLOBAL_MODULE_PWD}/lib/.index.sh"
 
 function ws:module-entrypoint { # FUNCTION NAME is standard
+    
+    angavel:initialization:argument
     
     angavel:selector:main
     
