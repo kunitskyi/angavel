@@ -14,12 +14,15 @@ services:
       - ${AG_MODULE_PATH}/config/SRP/nginx/options-ssl-nginx.conf:/etc/nginx/options-ssl-nginx.conf #Nginx SSL configuration
       - ${AG_MODULE_PATH}/config/SRP/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf #Default configuration
       - ${AG_MODULE_PATH}/config/SRP/nginx/default/:/var/www/default/ #Template for 404 error
-      - ${AG_MODULE_PATH}/.env/sites-available/:/etc/nginx/sites-available/ #VHosts configurations
+      - ${AG_MODULE_PATH}/.env/${GENERAL_PREFIX}/sites-available/:/etc/nginx/templates/ #VHosts configurations
       - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/SRP/nginx/sites-enabled/:/etc/nginx/sites-enabled/ #Enabled VHosts
       - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/SRP/certbot/conf/ssl-dhparams.pem:/ssl_dhparms/ssl-dhparams.pem #Settings for Nginx ssl configuration
       - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/SRP/certbot/www/:/var/www/certbot/:ro
       - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/SRP/certbot/conf/:/etc/nginx/ssl/:ro
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    environment:
+      GENERAL_PREFIX: ${GENERAL_PREFIX}
+      NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx/sites-available/
 
   srp_certbot:
     container_name: angavel_${GENERAL_PREFIX}_srp_certbot

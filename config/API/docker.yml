@@ -29,6 +29,8 @@ services:
       - ${AG_MODULE_PATH}/.env/${GENERAL_PREFIX}/laravel.env:/var/www/api/.env
     depends_on:
       - api_db
+    environment:
+      GENERAL_PREFIX: ${GENERAL_PREFIX}
 
   api_db:
     container_name: angavel_${GENERAL_PREFIX}_api_db
