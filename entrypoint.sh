@@ -17,10 +17,9 @@ source "${GLOBAL_MODULE_PWD}/lib/.index.sh"
 
 function ws:module-entrypoint { # FUNCTION NAME is standard
     
-    angavel:initialization:argument
-    
     angavel:selector:main
     
 }
 
+angavel:initialization:argument
 ws:module-entrypoint
