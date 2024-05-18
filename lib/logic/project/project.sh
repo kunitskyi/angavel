@@ -8,21 +8,20 @@
 
 function angavel:project:stop {
     
-    angavel:project:stop:srp
-    angavel:project:stop:api
-    angavel:project:stop:spa
+    angavel:project:stop:_srp
+    angavel:project:stop:_api
+    angavel:project:stop:_spa
     
     angavel:selector:main
 }
 
 function angavel:project:start-fresh {
     
-    
-    
-    
     ws:docker:set-network "${GLOBAL_MODULE_NETWORK_NAME}"
     
-    angavel:project:stop
+    angavel:project:stop:_srp
+    angavel:project:stop:_api
+    angavel:project:stop:_spa
     
     angavel:project:init
     
@@ -49,9 +48,9 @@ function angavel:project:start-refresh {
 
 function angavel:project:start {
     
-    angavel:project:start:srp
-    angavel:project:start:api
-    angavel:project:start:spa
+    angavel:project:start:_srp
+    angavel:project:start:_api
+    angavel:project:start:_spa
     
     angavel:selector:main
 }

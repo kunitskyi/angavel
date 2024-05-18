@@ -6,19 +6,19 @@
 #
 #######
 
-function angavel:project:stop:srp {
+function angavel:project:stop:_srp {
     
     angavel:project:_stop "SRP"
     
 }
 
-function angavel:project:stop:api {
+function angavel:project:stop:_api {
     
     angavel:project:_stop "API"
     
 }
 
-function angavel:project:stop:spa {
+function angavel:project:stop:_spa {
     
     angavel:project:_stop "SPA"
     
