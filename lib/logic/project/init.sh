@@ -15,27 +15,38 @@ function  angavel:project:init {
 }
 
 function  angavel:project:init:_srp {
+
+    local ARRAY_OF_DOMAINS=()
+
+    IFS="," read -r -a ARRAY_OF_DOMAINS <<< "${ENV_SRP_DOMAINS_LIST}"
+
     if [ $ENV_FLAG_RUN_SRP = 1 ]
     then
-        @stop
-        @wip
         
-        local DIR_PATH="./panel/srp/nginx/sites"
-        rm -rf ./panel/srp/nginx/sites-enabled/dracody-spa.conf
-        rm -rf ./panel/srp/nginx/sites-enabled/dracody-api.conf
-        mkdir -p ./panel/srp/nginx/conf.d_holder/
-        mv ./panel/srp/nginx/conf.d/default-ssl.conf ./panel/srp/nginx/conf.d_holder/default-ssl.conf
-        rm -rf ./.magic/$CURR_ENV/rocket/oxygen/certbot/conf/
-        mkdir -p ./.magic/$CURR_ENV/rocket/oxygen/certbot/conf/
-        openssl dhparam -out ./.magic/$CURR_ENV/rocket/oxygen/certbot/conf/ssl-dhparams.pem 4096
-        add_ssl_cert_logic "dracody.com"
-        add_ssl_cert_logic "api.dracody.com"
-        add_ssl_cert_logic "www.dracody.com"
-        cp ./panel/srp/nginx/sites-available/dracody-spa.conf ./panel/srp/nginx/sites-enabled/dracody-spa.conf
-        cp ./panel/srp/nginx/sites-available/dracody-api.conf ./panel/srp/nginx/sites-enabled/dracody-api.conf
-        mv ./panel/srp/nginx/conf.d_holder/default-ssl.conf ./panel/srp/nginx/conf.d/default-ssl.conf
-        rm -rf ./panel/srp/nginx/conf.d_holder/
-        control_container_logic srp restart
+        mkdir -p "${GLOBAL_CACHE_PWD}/SRP/nginx/conf.d_temp/"
+        mv \
+        "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d/default-ssl.conf" \
+        "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d_temp/default-ssl.conf"
+        
+        mkdir -p $GLOBAL_CACHE_PWD/SRP/certbot/conf/
+        
+        openssl dhparam -out $GLOBAL_CACHE_PWD/SRP/certbot/conf/ssl-dhparams.pem 4096
+        
+        for DOMAIN in "${ARRAY_OF_DOMAINS[@]}"
+        do
+            angavel:ssl:create-new "${DOMAIN}"
+        done
+
+        cp \
+        $GLOBAL_ENV_PWD/sites-available/* \
+        $GLOBAL_CACHE_PWD/SRP/nginx/sites-enabled/
+
+        mv \
+        "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d_temp/default-ssl.conf" \
+        "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d/default-ssl.conf"
+        
+        rm -rf "${GLOBAL_CACHE_PWD}/SRP/nginx/conf.d_temp/"
+        
     fi
 }
 
