@@ -1,0 +1,35 @@
+version: "3.8"
+
+name: angavel_${GENERAL_PREFIX}_srp
+services:
+  srp_nginx:
+    container_name: ${GENERAL_PREFIX}_srp_nginx
+    image: nginx:${SRP_WS_NGINX_TAG}
+    ports:
+      - ${SRP_PORT}:80 #Need for ssl
+      - ${SRP_SSL_PORT}:443
+    restart: always
+    volumes:
+      - ${AG_MODULE_PATH}/config/SRP/nginx/nginx.conf:/etc/nginx/nginx.conf #Nginx configuration
+      - ${AG_MODULE_PATH}/config/SRP/nginx/options-ssl-nginx.conf:/etc/nginx/options-ssl-nginx.conf #Nginx SSL configuration
+      - ${AG_MODULE_PATH}/config/SRP/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf #Default configuration
+      - ${AG_MODULE_PATH}/config/SRP/nginx/default/:/var/www/default/ #Template for 404 error
+      - ${AG_MODULE_PATH}/config/SRP/nginx/sites-available/:/etc/nginx/sites-available/ #VHosts configurations
+      - ${AG_MODULE_PATH}/config/SRP/nginx/sites-enabled/:/etc/nginx/sites-enabled/ #Enabled VHosts
+      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/certbot/conf/ssl-dhparams.pem:/ssl_dhparms/ssl-dhparams.pem #Settings for Nginx ssl configuration
+      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/certbot/www/:/var/www/certbot/:ro
+      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/certbot/conf/:/etc/nginx/ssl/:ro
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+
+  srp_certbot:
+    container_name: angavel_${GENERAL_PREFIX}_srp_certbot
+    image: certbot/certbot:${SRP_CERTBOT_TAG}
+    volumes:
+      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/certbot/www/:/var/www/certbot/:rw
+      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/certbot/conf/:/etc/letsencrypt/:rw
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+networks:
+  default:
+    external: true
+    name: ${AG_NETWORK_NAME}
