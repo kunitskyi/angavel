@@ -8,7 +8,10 @@
 
 function angavel:project:start:srp {
     
-    angavel:project:_start "SRP"
+    if [ $ENV_FLAG_RUN_SRP = 1 ]
+    then
+        angavel:project:_start "SRP"
+    fi
     
 }
 
