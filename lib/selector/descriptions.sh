@@ -16,7 +16,7 @@ GLOBAL_MODULE_MAIN_DESCRIPTION=(
     ["angavel:selector:git"]="Git Manager"
     ["ws:change-environment"]="\033[0;32mChange Environment\033[0m"
     ["ws:change-module"]="\033[0;32mChange Module \033[1m&\033[0;32m Environment\033[0m"
-    
+
     ["angavel:ssl:cert-get"]="Add/Update SSL certificates"
     ["ws:flash-data"]="Flash Data"
     ["ws:configure-env"]="Environment Files Configuration"
@@ -28,7 +28,7 @@ GLOBAL_MODULE_PROJECT_CONTROL_DESCRIPTION=(
     ["angavel:project:start"]="Simple Start"
     ["angavel:project:stop"]="Stop Project"
     ["angavel:selector:project-start"]="Start"
-    
+
     ["angavel:selector:main"]="Main Menu"
 )
 
@@ -38,7 +38,7 @@ GLOBAL_MODULE_PROJECT_START_DESCRIPTION=(
     ["angavel:project:start-fresh"]="Fresh Start"
     ["angavel:project:start-refresh"]="Refresh Start"
     ["angavel:project:start"]="Simple Start"
-    
+
     ["angavel:selector:project-control"]="Go Back"
     ["angavel:selector:main"]="Main Menu"
 )

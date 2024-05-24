@@ -19,9 +19,9 @@ source "${GLOBAL_MODULE_PWD}/.env/${GLOBAL_CURRENT_ENVIRONMENT}/selectors.sh"
 source "${GLOBAL_MODULE_PWD}/lib/.index.sh"
 
 function ws:module-entrypoint { # FUNCTION NAME is standard
-    
+
     angavel:selector:main
-    
+
 }
 
 angavel:initialization:argument
