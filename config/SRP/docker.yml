@@ -22,8 +22,10 @@ services:
       - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/SRP/certbot/conf/:/etc/nginx/ssl/:ro
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     environment:
-      GENERAL_PREFIX: ${GENERAL_PREFIX}
       NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx/sites-available/
+      GENERAL_PREFIX: ${GENERAL_PREFIX}
+      SRP_SPA_DOMAIN: ${SRP_SPA_DOMAIN}
+      SRP_API_DOMAIN: ${SRP_API_DOMAIN}
 
   srp_certbot:
     container_name: angavel_${GENERAL_PREFIX}_srp_certbot

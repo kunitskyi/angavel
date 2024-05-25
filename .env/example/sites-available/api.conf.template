@@ -1,5 +1,5 @@
 server {
-  server_name *.site.com site.com;
+  server_name ${SRP_API_DOMAIN};
   server_tokens off;
   listen       80;
   listen  [::]:80;
@@ -9,20 +9,20 @@ server {
   }
 
   location / {
-    return 301 https://www.site.com$request_uri;
+    return 301 https://${SRP_API_DOMAIN}$request_uri;
   }
 }
 
 server {
-  server_name www.site.com;
+  server_name ${SRP_API_DOMAIN};
   server_tokens off;
-
+  
   listen       443 ssl http2;
   listen  [::]:443 ssl http2;
   
   #B
-  ssl_certificate /etc/nginx/ssl/live/www.site.com/fullchain.pem;
-  ssl_certificate_key /etc/nginx/ssl/live/www.site.com/privkey.pem;
+  ssl_certificate /etc/nginx/ssl/live/${SRP_API_DOMAIN}/fullchain.pem;
+  ssl_certificate_key /etc/nginx/ssl/live/${SRP_API_DOMAIN}/privkey.pem;
   #A
   include /etc/nginx/options-ssl-nginx.conf;
   ssl_dhparam /ssl_dhparms/ssl-dhparams.pem;
@@ -35,12 +35,11 @@ server {
 
   location / {
     #Reverse Proxy
-    proxy_pass http://angavel_${GENERAL_PREFIX}_spa_webserver:80;
+    proxy_pass http://angavel_${GENERAL_PREFIX}_api_webserver:80;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Accept-Encoding "";
     proxy_redirect     off;
   }
-
 }
