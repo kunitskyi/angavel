@@ -1,5 +1,7 @@
 ARG SPA_NODE_VERSION_TAG
+FROM node:${SPA_NODE_VERSION_TAG}
+
 ARG SPA_ANGULAR_VERSION
-FROM node:$SPA_NODE_VERSION_TAG
-RUN  "npm install -g @angular/cli@${SPA_ANGULAR_VERSION}"
+RUN  npm install -g @angular/cli@${SPA_ANGULAR_VERSION}
+
 WORKDIR /var/www/angular/
