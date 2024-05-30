@@ -6,7 +6,7 @@
 #
 #######
 
-function angavel:srp:_initialization {
+function angavel:srp:project:_initialization {
 
     local ARRAY_OF_DOMAINS=()
     local ARRAY_OF_CONFIGS=()

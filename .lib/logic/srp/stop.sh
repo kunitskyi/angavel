@@ -6,8 +6,8 @@
 #
 #######
 
-function angavel:spa:_stop {
+function angavel:srp:_stop {
 
-    angavel:general:project:control:_stop "SPA"
+    angavel:general:project:control:_stop "SRP"
 
 }
