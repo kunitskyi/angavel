@@ -2,11 +2,11 @@
 
 ##
 #
-# Module Argument Initialization
+# Module Core Initialization
 #
 #######
 
-function angavel:initialization:argument {
+function angavel:core:initialization {
 
     local DOCKER_ENV_PATH="${GLOBAL_COMPOSE_ENV_PATH}"
 

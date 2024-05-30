@@ -27,5 +27,5 @@ function ws:module-entrypoint { # FUNCTION NAME is standard
 
 }
 
-angavel:initialization:argument
+angavel:core:initialization
 ws:module-entrypoint
