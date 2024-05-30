@@ -3,7 +3,7 @@ version: "3.8"
 name: angavel_${GENERAL_PREFIX}_srp
 services:
   srp_nginx:
-    container_name: ${GENERAL_PREFIX}_srp_nginx
+    container_name: angavel_${GENERAL_PREFIX}_srp_nginx
     image: nginx:${SRP_WS_NGINX_TAG}
     ports:
       - ${SRP_PORT}:80 #Need for ssl
