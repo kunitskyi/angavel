@@ -7,9 +7,9 @@ services:
     image: nginx:${API_WS_NGINX_TAG}
     ports: ["${GENERAL_PORTS_IP}:${API_WS_PORT}:80"]
     volumes:
-      - ${AG_MODULE_PATH}/config/API/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ${AG_MODULE_PATH}/config/API/nginx/templates/:/etc/nginx/templates
-      - ${AG_MODULE_PATH}/data/${GENERAL_PREFIX}/API/:/var/www/api/
+      - ${AG_MODULE_PATH}/.lib/config/API/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${AG_MODULE_PATH}/.lib/config/API/nginx/templates/:/etc/nginx/templates
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/API/:/var/www/api/
     depends_on:
       - api_cgi
       - api_db
@@ -21,12 +21,12 @@ services:
     container_name: angavel_${GENERAL_PREFIX}_api_cgi
     build:
       context: .
-      dockerfile: ${AG_MODULE_PATH}/config/API/php/Dockerfile
+      dockerfile: ${AG_MODULE_PATH}/.lib/config/API/php/Dockerfile
     restart: always
     volumes:
-      - ${AG_MODULE_PATH}/config/API/cgi-cmd.sh:/cgi-cmd.sh
-      - ${AG_MODULE_PATH}/data/${GENERAL_PREFIX}/API/:/var/www/api/
-      - ${AG_MODULE_PATH}/.env/${GENERAL_PREFIX}/laravel.env:/var/www/api/.env
+      - ${AG_MODULE_PATH}/.lib/config/API/cgi-cmd.sh:/cgi-cmd.sh
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/API/:/var/www/api/
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/.conf/laravel.env:/var/www/api/.env
     depends_on:
       - api_db
     environment:
@@ -39,7 +39,7 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports: ["${GENERAL_PORTS_IP}:${API_DB_PORT}:3306"]
     volumes:
-      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/API/mysql/:/var/lib/mysql/
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/API/mysql/:/var/lib/mysql/
     environment:
       MYSQL_DATABASE: ${API_DB_NAME}
       MYSQL_ROOT_PASSWORD: ${API_DB_ROOT_PASSWORD}
@@ -51,7 +51,7 @@ services:
     command: redis-server --requirepass ${API_CACHE_REDIS_PASSWORD}
     ports: ["${GENERAL_PORTS_IP}:${API_CACHE_PORT}:6379"]
     volumes:
-      - ${AG_MODULE_PATH}/cache/${GENERAL_PREFIX}/API/redis/:/data/
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/API/redis/:/data/
 
 networks:
   default:
