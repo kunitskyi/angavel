@@ -10,9 +10,9 @@ function angavel:core:project:start-fresh {
 
     ws:docker:set-network "${GLOBAL_MODULE_NETWORK_NAME}"
 
-    # angavel:project:stop:_srp
-    # angavel:project:stop:_api
-    # angavel:project:stop:_spa
+    angavel:srp:_stop
+    angavel:api:_stop
+    angavel:spa:_stop
 
     angavel:core:project:initialization
 
@@ -36,9 +36,9 @@ function angavel:core:project:start-refresh {
 
 function angavel:core:project:start {
 
-    # angavel:project:start:_srp
-    # angavel:project:start:_api
-    # angavel:project:start:_spa
+    angavel:srp:_start
+    angavel:api:_start
+    angavel:spa:_start
 
     angavel:selector:main
 }

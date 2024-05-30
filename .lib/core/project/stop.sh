@@ -8,9 +8,9 @@
 
 function angavel:core:project:stop {
 
-    # angavel:project:stop:_srp
-    # angavel:project:stop:_api
-    # angavel:project:stop:_spa
+    angavel:srp:_start
+    angavel:api:_start
+    angavel:spa:_start
 
     angavel:selector:main
 }
