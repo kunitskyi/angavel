@@ -2,11 +2,11 @@
 
 ##
 #
-# Project Start
+# General Project Control
 #
 #######
 
-function angavel:project:_start {
+function angavel:general:project:control:_start {
 
     # TODO: check $1 in array
     local COMPOSITION_NAME=$1 # folder ./../../../config/$LOCAL_PROJECT_NAME
@@ -18,7 +18,7 @@ function angavel:project:_start {
 
 }
 
-function angavel:project:_stop {
+function angavel:general:project:control:_stop {
 
     # TODO: check $1 in array
     local COMPOSITION_NAME=$1 # folder ./../../../config/$LOCAL_PROJECT_NAME

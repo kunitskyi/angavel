@@ -6,7 +6,7 @@
 #
 #######
 
-function angavel:ssl:create-new {
+function angavel:srp:ssl:_create-new {
 
     local DOMAIN_NAME=$1
     local FLAG_START_CERTBOT=$2
