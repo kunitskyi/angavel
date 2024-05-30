@@ -1,6 +1,6 @@
 # Wisent Project
-.env/*
-!.env/*example
+env/*
+!env/*example
 
 data/*
 !data/.gitkeep

@@ -8,7 +8,7 @@
 
 function LIBRARY-SELECTOR-INDEX {
 
-    local LOCAL_PWD="${GLOBAL_MODULE_PWD}/lib/selector"
+    local LOCAL_PWD="${GLOBAL_MODULE_PWD}/.lib/selector"
 
     source $LOCAL_PWD/descriptions.sh
     source $LOCAL_PWD/list.sh
