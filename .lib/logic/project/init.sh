@@ -50,7 +50,7 @@ function angavel:project:init:_srp {
 
 function angavel:project:init:_api {
 
-    local COMPOSE_PATH="${GLOBAL_COMPOSE_PWD}/API/docker.yml"
+    local COMPOSE_PATH="${GLOBAL_CONFIG_PWD}/API/docker.yml"
 
     git clone \
         -b "${ENV_API_GIT_BRANCH}" \
@@ -76,7 +76,7 @@ function angavel:project:init:_api {
 
 function angavel:project:init:_spa {
 
-    local COMPOSE_PATH="${GLOBAL_COMPOSE_PWD}/SPA/docker.yml"
+    local COMPOSE_PATH="${GLOBAL_CONFIG_PWD}/SPA/docker.yml"
 
     git clone \
         -b "${ENV_SPA_GIT_BRANCH}" \

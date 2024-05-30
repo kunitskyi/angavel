@@ -8,7 +8,7 @@
 
 function angavel:initialization:argument {
 
-    local DOCKER_ENV_PATH="${GLOBAL_MODULE_PWD}/.env/${GLOBAL_CURRENT_ENVIRONMENT}/docker.env"
+    local DOCKER_ENV_PATH="${GLOBAL_COMPOSE_ENV_PATH}"
 
     @edit-env-file \
         "${DOCKER_ENV_PATH}" \
