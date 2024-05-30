@@ -15,17 +15,17 @@ GLOBAL_MODULE_MAIN_SELECTOR=(
 )
 
 GLOBAL_MODULE_PROJECT_CONTROL_SELECTOR=(
-    "angavel:project:start"
-    "angavel:project:stop"
+    "angavel:core:project:start"
+    "angavel:core:project:stop"
     "angavel:selector:project-start"
-    
+
     "angavel:selector:main"
 )
 GLOBAL_MODULE_PROJECT_START_SELECTOR=(
-    "angavel:project:start-fresh"
-    "angavel:project:start-refresh"
-    "angavel:project:start"
-    
+    "angavel:core:project:start-fresh"
+    "angavel:core:project:start-refresh"
+    "angavel:core:project:start"
+
     "angavel:selector:project-control"
     "angavel:selector:main"
 )
