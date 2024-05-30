@@ -24,14 +24,11 @@ function angavel:project:init:_srp {
 
     if [ $ENV_FLAG_RUN_SRP = 1 ]; then
 
-        mkdir -p "${GLOBAL_CACHE_PWD}/SRP/nginx/conf.d_temp/"
-        mv \
-            "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d/default-ssl.conf" \
-            "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d_temp/default-ssl.conf"
-
-        mkdir -p $GLOBAL_CACHE_PWD/SRP/certbot/conf/
-
-        openssl dhparam -out $GLOBAL_CACHE_PWD/SRP/certbot/conf/ssl-dhparams.pem 4096
+        # IF ssl-dhparams.pem isn't exist, then generate
+        if [ ! -f "$GLOBAL_CACHE_PWD/SRP/certbot/conf/ssl-dhparams.pem" ]; then
+            mkdir -p $GLOBAL_CACHE_PWD/SRP/certbot/conf/
+            openssl dhparam -out $GLOBAL_CACHE_PWD/SRP/certbot/conf/ssl-dhparams.pem 4096
+        fi
 
         angavel:project:_start "SRP"
         ws:docker:compose:send-cmd \
@@ -47,12 +44,6 @@ function angavel:project:init:_srp {
                 "${GLOBAL_COMPOSE_ENV_PATH}" "${COMPOSE_PATH}" \
                 "srp_webserver" "/nginx-cmd-smn.sh ENABLE ${CONFIG}"
         done
-
-        mv \
-            "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d_temp/default-ssl.conf" \
-            "${GLOBAL_MODULE_PWD}/config/SRP/nginx/conf.d/default-ssl.conf"
-
-        rm -rf "${GLOBAL_CACHE_PWD}/SRP/nginx/conf.d_temp/"
 
     fi
 }
