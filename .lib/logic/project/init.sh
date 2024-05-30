@@ -55,7 +55,7 @@ function angavel:project:init:_api {
     git clone \
         -b "${ENV_API_GIT_BRANCH}" \
         "${ENV_API_GIT_URL}" \
-        "${GLOBAL_MODULE_PWD}/data/${GLOBAL_CURRENT_ENVIRONMENT}/API"
+        "${GLOBAL_DATA_PWD}/API"
 
     angavel:project:_start "API"
     ws:docker:compose:send-cmd \
@@ -81,7 +81,7 @@ function angavel:project:init:_spa {
     git clone \
         -b "${ENV_SPA_GIT_BRANCH}" \
         "${ENV_SPA_GIT_URL}" \
-        "${GLOBAL_MODULE_PWD}/data/${GLOBAL_CURRENT_ENVIRONMENT}/SPA"
+        "${GLOBAL_DATA_PWD}/SPA"
 
     @comment-strings-where 1 "command:" "${COMPOSE_PATH}"
     angavel:project:_start "SPA"
