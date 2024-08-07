@@ -16,6 +16,6 @@ TAGS_SYNTAX=(
 
 declare -gA TAGS_TO_SELECTORS
 TAGS_TO_SELECTORS=(
-    ["WIP"]="angavel:selector:project-control,angavel:selector:docker,angavel:selector:docker-composition,angavel:selector:backups,angavel:selector:git"
+    ["WIP"]="angavel:selector:docker,angavel:selector:docker-composition,angavel:selector:backups,angavel:selector:git"
     ["UNSAFE"]="angavel:selector:docker-composition"
 )
