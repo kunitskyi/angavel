@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pecl install -o -f redis \
-    &&  rm -rf /tmp/pear \
-    &&  docker-php-ext-enable redis
+# RUN pecl install -o -f redis \
+#     &&  rm -rf /tmp/pear \
+#     &&  docker-php-ext-enable redis
 
 # COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
