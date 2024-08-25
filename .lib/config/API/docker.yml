@@ -1,5 +1,3 @@
-version: "3.8"
-
 name: angavel_${GENERAL_PREFIX}_api
 services:
   api_webserver:

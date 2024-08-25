@@ -1,5 +1,3 @@
-version: "3.8"
-
 name: angavel_${GENERAL_PREFIX}_spa
 services:
   spa_webserver:
