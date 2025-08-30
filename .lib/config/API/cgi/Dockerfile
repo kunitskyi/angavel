@@ -24,7 +24,7 @@ RUN apk add --no-cache --virtual .build-deps autoconf g++ make \
     && rm -rf /tmp/pear
 
 # Copy php.ini
-COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ${AG_MODULE_PATH}/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # Install Composer (from official image)
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
@@ -33,8 +33,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/api
 
 # Copy supervisor configs
-COPY ./supervisord.conf /etc/supervisord.conf
-COPY ./supervisor/ /etc/supervisor.d/
+COPY ${AG_MODULE_PATH}/supervisor/supervisord.conf /etc/supervisord.conf
+COPY ${AG_MODULE_PATH}/supervisor/conf.d/ /etc/supervisor/conf.d/
 
 # Run Supervisor (which manages php-fpm + workers)
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]

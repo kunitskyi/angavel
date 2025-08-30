@@ -19,14 +19,14 @@ services:
     container_name: angavel_${GENERAL_PREFIX}_api_cgi
     build:
       context: .
-      dockerfile: ${AG_MODULE_PATH}/.lib/config/API/php/Dockerfile
+      dockerfile: ${AG_MODULE_PATH}/.lib/config/API/cgi/Dockerfile
+      args:
+        - AG_PATH=${AG_MODULE_PATH}/.lib/config/API/cgi
     restart: always
     volumes:
       - ${AG_MODULE_PATH}/.lib/config/API/cgi-cmd.sh:/cgi-cmd.sh
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/API/:/var/www/api/
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/.conf/laravel.env:/var/www/api/.env
-      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/.conf/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
-      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/.conf/supervisor/conf.d/:/etc/supervisor/conf.d/
     depends_on:
       - api_db
     environment:
