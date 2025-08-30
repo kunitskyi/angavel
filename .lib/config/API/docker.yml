@@ -20,8 +20,6 @@ services:
     build:
       context: .
       dockerfile: ${AG_MODULE_PATH}/.lib/config/API/cgi/Dockerfile
-      args:
-        - AG_PATH=${AG_MODULE_PATH}/.lib/config/API/cgi
     restart: always
     volumes:
       - ${AG_MODULE_PATH}/.lib/config/API/cgi-cmd.sh:/cgi-cmd.sh
