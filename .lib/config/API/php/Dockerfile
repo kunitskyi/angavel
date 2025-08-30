@@ -1,29 +1,40 @@
-FROM php:8.2.3-fpm
+FROM php:8.4-fpm-alpine3.22
 
-RUN apt-get update && apt-get install -y \
-    apt-utils \
+# Install runtime dependencies
+RUN apk add --no-cache \
+    supervisor \
+    git \
+    zip \
+    unzip \
     libpq-dev \
     libpng-dev \
     libzip-dev \
-    zip unzip \
-    git && \
-    docker-php-ext-install pdo_mysql && \
-    docker-php-ext-install bcmath && \
-    docker-php-ext-install gd && \
-    docker-php-ext-install zip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    libjpeg-turbo-dev \
+    freetype-dev \
+    oniguruma-dev \
+    bash
 
-# RUN pecl install -o -f redis \
-#     &&  rm -rf /tmp/pear \
-#     &&  docker-php-ext-enable redis
+# Install build dependencies, PHP extensions, then clean up
+RUN apk add --no-cache --virtual .build-deps autoconf g++ make \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql bcmath gd zip \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del .build-deps \
+    && rm -rf /tmp/pear
 
-# COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+# Copy php.ini
+COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
-# Install composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --filename=composer \
-    --install-dir=/usr/local/bin
+# Install Composer (from official image)
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
+# Set working directory
 WORKDIR /var/www/api
+
+# Copy supervisor configs
+COPY ./supervisord.conf /etc/supervisord.conf
+COPY ./supervisor/ /etc/supervisor.d/
+
+# Run Supervisor (which manages php-fpm + workers)
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf", "-n"]
