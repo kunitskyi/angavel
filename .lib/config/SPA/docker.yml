@@ -23,7 +23,7 @@ services:
     volumes:
       - ${AG_MODULE_PATH}/.lib/config/SPA/node-cmd.sh:/node-cmd.sh
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/SPA/:/var/www/angular/
-    command: "ng serve --port 4245 --host 0.0.0.0 --disable-host-check "
+    command: "ng serve --port 4245 --host 0.0.0.0"
     environment:
       BUILD_ENV: ${SPA_BUILD_ENV}
 
