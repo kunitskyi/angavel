@@ -31,7 +31,7 @@ function angavel:srp:ssl:_create-new {
         @comment-strings-where 0 "command:" "${COMPOSE_PATH}"
         @comment-strings-where 0 "entrypoint:" "${COMPOSE_PATH}"
 
-        if [ $FLAG_START_CERTBOT = 1 ]; then
+        if [[ $FLAG_START_CERTBOT = 1 ]]; then
             docker compose \
                 --env-file $GLOBAL_COMPOSE_ENV_PATH -f $COMPOSE_PATH \
                 up -d \
