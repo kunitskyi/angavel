@@ -183,7 +183,7 @@ function site-manager:_file-selector {
 
 function site-manager:nginx:_reload {
 
-    systemctl reload nginx
+    service nginx reload
 
 }
 
@@ -324,28 +324,34 @@ function site-manager:entrypoint {
     site-manager:selector:main
 }
 
-#Generate configs from templates
-for template in "$GLOBAL_SITES_TEMPLATES_PATH"/*.template; do
-  filename=$(basename "$template" .template)
-  envsubst < "$template" > "$GLOBAL_SITES_AVAILABLE_PATH/$filename"
-done
+function initialize:confs {
+    local defined_envs=$(printf '${%s} ' $(awk "END { for (name in ENVIRON) { print ( name ~ /${filter}/ ) ? name : \"\" } }" < /dev/null ))
+    #Generate configs from templates
+    mkdir -p "$GLOBAL_SITES_TEMPLATES_PATH"
+    mkdir -p "$GLOBAL_SITES_AVAILABLE_PATH"
+    for template in "$GLOBAL_SITES_TEMPLATES_PATH"/*.template; do
+        filename=$(basename "$template" .template)
+        envsubst "$defined_envs" < "$template" > "$GLOBAL_SITES_AVAILABLE_PATH/$filename"
+    done
+}
 
-if [ $ARG_1 = "ENABLE" ]; then
+initialize:confs
+if [ "$ARG_1" = "ENABLE" ]; then
     site-manager:site:_enable $ARG_2
     site-manager:nginx:_reload
-elif [ $ARG_1 = "RENEW" ]; then
+elif [ "$ARG_1" = "RENEW" ]; then
     site-manager:site:_renew $ARG_2
     site-manager:nginx:_reload
-elif [ $ARG_1 = "DISABLE" ]; then
+elif [ "$ARG_1" = "DISABLE" ]; then
     site-manager:site:_disable $ARG_2
     site-manager:nginx:_reload
-elif [ $ARG_1 = "ENABLE-ALL" ]; then
+elif [ "$ARG_1" = "ENABLE-ALL" ]; then
     site-manager:site:_enable-all
     site-manager:nginx:_reload
-elif [ $ARG_1 = "RENEW-ALL" ]; then
+elif [ "$ARG_1" = "RENEW-ALL" ]; then
     site-manager:site:_renew-all
     site-manager:nginx:_reload
-elif [ $ARG_1 = "DISABLE-ALL" ]; then
+elif [ "$ARG_1" = "DISABLE-ALL" ]; then
     site-manager:site:_disable-all
     site-manager:nginx:_reload
 fi
