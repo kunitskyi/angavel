@@ -13,7 +13,7 @@ ARG_2="$2"
 ARG_3="$3"
 
 GLOBAL_SITES_AVAILABLE_PATH="/etc/nginx/sites-available"
-GLOBAL_SITES_ENABLED_PATH="/etc/nginx/sites-enabled"
+GLOBAL_SITES_ENABLED_PATH="/etc/nginx/conf.d"
 declare -A ACTION_PREFIX_FORMAT_CODE
 ACTION_PREFIX_FORMAT_CODE=(
     ["ENABLE"]="\033[33m"
