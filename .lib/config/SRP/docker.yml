@@ -11,9 +11,9 @@ services:
       - ${AG_MODULE_PATH}/.lib/config/SPA/nginx-cmd-smn.sh:/nginx-cmd-smn.sh
       - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/nginx.conf:/etc/nginx/nginx.conf #Nginx configuration
       - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/options-ssl-nginx.conf:/etc/nginx/options-ssl-nginx.conf #Nginx SSL configuration
-      - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/default.conf:/etc/nginx/default.conf #Default configuration
+      - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/conf.d/:/etc/nginx/conf.d/ #Default configuration directory
       - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/default/:/var/www/default/ #Template for 404 error
-      - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/sites-templates/:/etc/nginx/templates/ #VHosts configurations
+      - ${AG_MODULE_PATH}/.lib/config/SRP/nginx/sites-templates/:/etc/nginx/sites-templates/ #VHosts configurations
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/SRP/nginx/sites-enabled/:/etc/nginx/sites-enabled/ #Enabled VHosts
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/SRP/certbot/conf/ssl-dhparams.pem:/ssl_dhparms/ssl-dhparams.pem #Settings for Nginx ssl configuration
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/SRP/certbot/www/:/var/www/certbot/:ro

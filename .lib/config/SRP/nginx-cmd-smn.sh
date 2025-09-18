@@ -12,8 +12,9 @@ ARG_1="$1"
 ARG_2="$2"
 ARG_3="$3"
 
+GLOBAL_SITES_TEMPLATES_PATH="/etc/nginx/sites-templates"
 GLOBAL_SITES_AVAILABLE_PATH="/etc/nginx/sites-available"
-GLOBAL_SITES_ENABLED_PATH="/etc/nginx/conf.d"
+GLOBAL_SITES_ENABLED_PATH="/etc/nginx/sites-enabled"
 declare -A ACTION_PREFIX_FORMAT_CODE
 ACTION_PREFIX_FORMAT_CODE=(
     ["ENABLE"]="\033[33m"
@@ -322,6 +323,12 @@ function site-manager:selector:main {
 function site-manager:entrypoint {
     site-manager:selector:main
 }
+
+#Generate configs from templates
+for template in "$GLOBAL_SITES_TEMPLATES_PATH"/*.template; do
+  filename=$(basename "$template" .template)
+  envsubst < "$template" > "$GLOBAL_SITES_ENABLED_PATH/$filename"
+done
 
 if [ $ARG_1 = "ENABLE" ]; then
     site-manager:site:_enable $ARG_2
