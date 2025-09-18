@@ -327,7 +327,7 @@ function site-manager:entrypoint {
 #Generate configs from templates
 for template in "$GLOBAL_SITES_TEMPLATES_PATH"/*.template; do
   filename=$(basename "$template" .template)
-  envsubst < "$template" > "$GLOBAL_SITES_ENABLED_PATH/$filename"
+  envsubst < "$template" > "$GLOBAL_SITES_AVAILABLE_PATH/$filename"
 done
 
 if [ $ARG_1 = "ENABLE" ]; then
