@@ -7,7 +7,7 @@ services:
       - ${AG_MODULE_PATH}/.lib/config/SPA/nginx-cmd.sh:/nginx-cmd.sh
       - ${AG_MODULE_PATH}/.lib/config/SPA/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ${AG_MODULE_PATH}/.lib/config/SPA/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/SPA/:/var/www/dist/:rw
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/SPA/:/var/www/:rw
 
   spa_angular:
     container_name: angavel_${GENERAL_PREFIX}_spa_angular
