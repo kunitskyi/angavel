@@ -18,6 +18,7 @@ services:
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/SRP/certbot/conf/ssl-dhparams.pem:/ssl_dhparms/ssl-dhparams.pem #Settings for Nginx ssl configuration
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/SRP/certbot/www/:/var/www/certbot/:ro
       - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/cache/SRP/certbot/conf/:/etc/nginx/ssl/:ro
+      - ${AG_MODULE_PATH}/environment/${GENERAL_PREFIX}/data/SPA/:/var/www/spa/:rw #SPA path to build
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     environment:
       GENERAL_PREFIX: ${GENERAL_PREFIX}

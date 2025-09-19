@@ -21,6 +21,9 @@ server {
   listen  [::]:443 ssl;
 
   http2 on;
+
+  root   /var/www/spa/dist/dracody/browser;
+  index  index.html index.htm;
   
   #B
   ssl_certificate /etc/nginx/ssl/live/${SRP_SPA_DOMAIN}/fullchain.pem;
@@ -35,14 +38,31 @@ server {
   error_log  /var/log/nginx/error.log;
   access_log /var/log/nginx/access.log;
 
+  # --- Main Angular route handler ---
   location / {
-    #Reverse Proxy
-    proxy_pass http://angavel_${GENERAL_PREFIX}_spa_webserver:80;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Accept-Encoding "";
-    proxy_redirect     off;
+      try_files $uri $uri/ /index.html =404;
   }
+
+  # Cache static assets aggressively
+  location ~* \.(?:ico|css|js|gif|jpe?g|png|woff2?|eot|ttf|svg)$ {
+      expires 6M;
+      access_log off;
+      add_header Cache-Control "public, immutable";
+      try_files $uri =404;
+  }
+
+  # Service worker should not be cached too long
+  location /ngsw-worker.js {
+      add_header Cache-Control "no-cache, no-store, must-revalidate";
+  }
+
+  location /ngsw.json {
+      add_header Cache-Control "no-cache, no-store, must-revalidate";
+  }
+
+  # Gzip compression for better performance
+  gzip on;
+  gzip_types text/plain text/css application/javascript application/json application/font-woff2;
+  gzip_min_length 256;
 
 }
