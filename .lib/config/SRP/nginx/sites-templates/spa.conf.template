@@ -22,7 +22,7 @@ server {
 
   http2 on;
 
-  root   /var/www/spa/dist/dracody/browser;
+  root   /var/www/spa/dist/build/browser;
   index  index.html index.htm;
   
   #B
